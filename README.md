@@ -10,4 +10,4 @@ Make sure the default port number in the Client main method is the same as the M
 2. Start the server.
 
 3. Start the client.
-You could run multiple Client instances at the same time to simultae multiple users chatting.
+You could run multiple Client instances at the same time to simulate multiple users chatting.
