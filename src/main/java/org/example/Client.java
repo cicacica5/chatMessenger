@@ -110,11 +110,17 @@ public class Client {
         try {
             Client client = new Client(serverAddress, port, username);
             if (option.equals("1")) {
-                port = client.connectNew();
-                while (port < 0) {
+                int maxRetries = 5;
+                int retries = 0;
+                while (retries < maxRetries) {
                     port = client.connectNew();
+                    if (port >= 0) {
+                        System.out.println("New chat created on port " + port + ". You are now connected to the chat. Enter 'exit' to leave the chat.");
+                        break;
+                    }
+                    retries++;
+                    System.out.println("Retrying to create a new chat (" + retries + "/" + maxRetries + ")");
                 }
-                System.out.println("New chat created on port " + port + ". You are now connected to the chat. Enter 'exit' to leave the chat.");
             } else if (option.equals("2")) {
                 System.out.println("Enter the port number of the chat:");
                 port = Integer.parseInt(scanner.nextLine());
