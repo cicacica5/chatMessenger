@@ -113,13 +113,13 @@ public class Client {
                 while (port < 0) {
                     port = client.connectNew();
                 }
-                System.out.println("New chat created on port " + port + ". You are now connected to the chat.");
+                System.out.println("New chat created on port " + port + ". You are now connected to the chat. Enter 'exit' to leave the chat.");
             } else if (option.equals("2")) {
                 System.out.println("Enter the port number of the chat:");
                 port = Integer.parseInt(scanner.nextLine());
                 client = new Client(serverAddress, port, username);
                 client.connect();
-                System.out.println("You are now connected to the chat.");
+                System.out.println("You are now connected to the chat. Enter 'exit' to leave the chat.");
             } else {
                 System.out.println("Invalid option, please try agian.");
             }
