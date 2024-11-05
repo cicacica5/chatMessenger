@@ -33,7 +33,7 @@ public class Client {
             outputStream = new ObjectOutputStream(socket.getOutputStream());
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error connecting to server: " + e.getMessage());
         }
         new listenFromServer().start();
     }
@@ -64,7 +64,7 @@ public class Client {
             outputStream.writeObject(username);
         }
         catch(IOException e) {
-            e.printStackTrace();
+            System.err.println("Error sending username to server: " + e.getMessage());
         }
     }
 
@@ -73,7 +73,7 @@ public class Client {
             outputStream.writeObject(message);
         }
         catch(IOException e) {
-            e.printStackTrace();
+            System.err.println("Error sending message to server: " + e.getMessage());
         }
     }
 
@@ -81,20 +81,20 @@ public class Client {
         try {
             if(inputStream != null) inputStream.close();
         }
-        catch(Exception e) {
-            e.printStackTrace();
+        catch(IOException e) {
+            System.err.println("Error exiting the chat: " + e.getMessage());
         }
         try {
             if(outputStream != null) outputStream.close();
         }
-        catch(Exception e) {
-            e.printStackTrace();
+        catch(IOException e) {
+            System.err.println("Error exiting the chat: " + e.getMessage());
         }
         try{
             if(socket != null) socket.close();
         }
-        catch(Exception e) {
-            e.printStackTrace();
+        catch(IOException e) {
+            System.err.println("Error exiting the chat: " + e.getMessage());
         }
     }
 
@@ -119,18 +119,18 @@ public class Client {
                 while (retries < maxRetries) {
                     port = client.connectNew();
                     if (port >= 0) {
-                        System.out.println("New chat created on port " + port + ". You are now connected to the chat. Enter 'exit' to leave the chat.");
+                        System.out.println("New chat created on port " + port + ". You are now connected to the chat. Please enter 'exit' to leave the chat.");
                         break;
                     }
                     retries++;
                     System.out.println("Retrying to create a new chat (" + retries + "/" + maxRetries + ")");
                 }
             } else if (option.equals("2")) {
-                System.out.println("Enter the port number of the chat:");
+                System.out.println("Please enter the port number of the chat:");
                 port = Integer.parseInt(scanner.nextLine());
                 client = new Client(serverAddress, port, username);
                 client.connect();
-                System.out.println("You are now connected to the chat. Enter 'exit' to leave the chat.");
+                System.out.println("You are now connected to the chat. Please enter 'exit' to leave the chat.");
             } else {
                 System.out.println("Invalid option, please try agian.");
             }
@@ -169,7 +169,7 @@ public class Client {
                         }
                     }
                 } catch (IOException | ClassNotFoundException e) {
-                    System.out.println("Connection closed.");
+                    e.printStackTrace();
                 }
             }
     }

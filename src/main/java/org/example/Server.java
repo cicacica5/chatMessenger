@@ -5,15 +5,17 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
-    private  ServerSocket serverSocket;
+    private ServerSocket serverSocket;
     private static final int MAIN_PORT = 5061;
-    private Map<Integer, ChatServer> chats = new HashMap<>();
+    private Map<Integer, ChatServer> chats = new ConcurrentHashMap<>();
 
     public Server() throws IOException {
         serverSocket = new ServerSocket(MAIN_PORT);
         System.out.println("Server started on port: " + MAIN_PORT);
+        Runtime.getRuntime().addShutdownHook(new Thread(this::close));
     }
 
     public void start() {
@@ -31,13 +33,18 @@ public class Server {
     }
 
     public void close() {
+        System.out.println("Shutting down server...");
         try {
-            if (serverSocket != null) {
+            if (serverSocket != null && !serverSocket.isClosed()) {
                 serverSocket.close();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error closing server socket: " + e.getMessage());
         }
+        for (ChatServer chatServer : chats.values()) {
+            chatServer.close();
+        }
+        System.out.println("Server is shutdown.");
     }
 
     private void handleClient(Socket socket) throws IOException, ClassNotFoundException {

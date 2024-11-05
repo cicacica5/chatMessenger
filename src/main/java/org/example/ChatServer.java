@@ -43,11 +43,11 @@ public class ChatServer {
 
     public void close() {
         try {
-            if (serverSocket != null) {
+            if (serverSocket != null && !serverSocket.isClosed()) {
                 serverSocket.close();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error closing chat server socket: " + e.getMessage());
         }
     }
 
