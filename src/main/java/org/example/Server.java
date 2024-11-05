@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Server {
     private  ServerSocket serverSocket;
-    private static final int MAIN_PORT = 5060;
+    private static final int MAIN_PORT = 5061;
     private Map<Integer, ChatServer> chats = new HashMap<>();
 
     public Server() throws IOException {

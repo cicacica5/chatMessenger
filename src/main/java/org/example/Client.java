@@ -17,7 +17,7 @@ public class Client {
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
 
-    final static DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     public Client(String serverAddress, int port, String username) {
         this.serverAddress = serverAddress;
@@ -97,7 +97,7 @@ public class Client {
     public static void main(String[] args) {
         //default
         String serverAddress = "localhost";
-        int port = 5060;
+        int port = 5061;
         String username = "Anonymous";
 
         Scanner scanner = new Scanner(System.in);
@@ -153,11 +153,11 @@ public class Client {
                 try {
                     while (true) {
                         Message message = (Message) inputStream.readObject();
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                        String formattedTimestamp = message.getTimestamp().format(FORMATTER);
                         if (message.getUsername().equals("Server")) {
-                            System.out.println("[" + message.getTimestamp().format(formatter) + "] " + message.getText());
+                            System.out.println("[" + formattedTimestamp + "] " + message.getText());
                         } else {
-                            System.out.println("[" + message.getTimestamp().format(formatter) + "] " + message.getUsername() + ": " + message.getText());
+                            System.out.println("[" + formattedTimestamp + "] " + message.getUsername() + ": " + message.getText());
                         }
                     }
                 } catch (IOException | ClassNotFoundException e) {

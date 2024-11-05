@@ -15,14 +15,14 @@ public class Message implements Serializable {
         this.timestamp = LocalDateTime.now();
     }
 
-    String getText() {
+    public String getText() {
         return content;
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
-    LocalDateTime getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 }
