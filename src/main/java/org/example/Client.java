@@ -101,11 +101,11 @@ public class Client {
     public static void main(String[] args) {
         //default
         String serverAddress = "localhost";
-        int port = 5061;
+        int port = 5060;
         String username = "Anonymous";
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to chat Messenger! Please enter your username:");
+        System.out.println("Welcome to chatMessenger! Please enter your username:");
         username = scanner.nextLine();
 
         System.out.println("Do you want to (1) start a new chat or (2) join an existing chat? Please enter 1 or 2.");
@@ -163,13 +163,13 @@ public class Client {
                         Message message = (Message) inputStream.readObject();
                         String formattedTimestamp = message.getTimestamp().format(FORMATTER);
                         if (message.getUsername().equals("Server")) {
-                            System.out.println("[" + formattedTimestamp + "] " + message.getText());
+                            System.out.println("[" + formattedTimestamp + "] [NOTICE]: " + message.getText());
                         } else {
                             System.out.println("[" + formattedTimestamp + "] " + message.getUsername() + ": " + message.getText());
                         }
                     }
                 } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
+                    System.out.println("Connection closed.");
                 }
             }
     }

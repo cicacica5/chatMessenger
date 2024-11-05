@@ -35,6 +35,7 @@ public class ClientHandler implements Runnable {
         try {
             username = (String) inputStream.readObject();
             chatServer.broadcast(new Message("Server", username + " has joined the chat."), this);
+            System.out.println("A new client " + username + " has connected on port: "  + socket.getLocalPort());
 
             while (true) {
                 Message message = (Message) inputStream.readObject();
@@ -43,6 +44,7 @@ public class ClientHandler implements Runnable {
 
         } catch (IOException | ClassNotFoundException e) {
             chatServer.broadcast(new Message("Server", username + " has left the chat."), this);
+            System.out.println("Client " + username + " has disconnected on port:"  + socket.getLocalPort());
             chatServer.removeClient(this);
         } finally {
             try {

@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
     private ServerSocket serverSocket;
-    private static final int MAIN_PORT = 5061;
+    private static final int MAIN_PORT = 5060;
     private Map<Integer, ChatServer> chats = new ConcurrentHashMap<>();
 
     public Server() throws IOException {
@@ -22,7 +22,7 @@ public class Server {
         while (!serverSocket.isClosed()) {
             try {
                 Socket socket = serverSocket.accept();
-                System.out.println("A new client has connected on port: " + MAIN_PORT);
+                //System.out.println("A new client has connected on port: " + MAIN_PORT);
                 handleClient(socket);
             } catch (IOException e) {
                 e.printStackTrace();

@@ -18,7 +18,6 @@ public class ChatServer {
         try {
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
-                System.out.println("A new client has connected on port: " + serverSocket.getLocalPort());
                 ClientHandler clientHandler = new ClientHandler(socket,this);
                 clientHandlers.add(clientHandler);
                 Thread clientHandlerThread = new Thread(clientHandler);
