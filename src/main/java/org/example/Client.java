@@ -25,7 +25,7 @@ public class Client {
         this.username = username;
     }
 
-    public void connect() throws IOException {
+    private void connect() throws IOException {
         socket = new Socket(serverAddress, port);
         try
         {
@@ -38,7 +38,7 @@ public class Client {
         new listenFromServer().start();
     }
 
-    public int connectNew() throws IOException, ClassNotFoundException {
+    private int connectNew() throws IOException, ClassNotFoundException {
         socket = new Socket(serverAddress, port);
         outputStream = new ObjectOutputStream(socket.getOutputStream());
         inputStream = new ObjectInputStream(socket.getInputStream());
