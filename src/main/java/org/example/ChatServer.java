@@ -40,6 +40,8 @@ public class ChatServer {
 
     public void removeClient(ClientHandler client) {
         clientHandlers.remove(client);
+        //Message message = new Message();
+        //broadcast(message, client);
     }
 
     public void close(){

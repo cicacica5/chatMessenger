@@ -52,6 +52,7 @@ public class Server {
             int newPort = createNewChat();
             outputStream.writeObject(newPort);
         }
+
     }
 
     private int createNewChat() {

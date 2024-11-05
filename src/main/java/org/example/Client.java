@@ -136,7 +136,11 @@ public class Client {
                     while (true) {
                         Message message = (Message) inputStream.readObject();
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-                        System.out.println("[" + message.getTimestamp().format(formatter) + "] " + message.getUsername() + ": " + message.getText());
+                        if (message.getUsername().equals("Server")) {
+                            System.out.println("[" + message.getTimestamp().format(formatter) + "] " + message.getText());
+                        } else {
+                            System.out.println("[" + message.getTimestamp().format(formatter) + "] " + message.getUsername() + ": " + message.getText());
+                        }
                     }
                 } catch (IOException | ClassNotFoundException e) {
                     System.out.println("Connection closed.");

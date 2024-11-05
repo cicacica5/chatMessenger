@@ -11,6 +11,7 @@ public class ClientHandler implements Runnable {
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
     private ChatServer chatServer;
+    private String username;
 
     public ClientHandler(Socket socket, ChatServer chatServer) {
         this.socket = socket;
@@ -35,10 +36,11 @@ public class ClientHandler implements Runnable {
         try {
             while (true) {
                 Message message = (Message) inputStream.readObject();
+                username = message.getUsername();
                 chatServer.broadcast(message, this);
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Client disconnected: " + socket.getInetAddress());
+            chatServer.broadcast(new Message("Server", username + " has left the chat."), this);
             chatServer.removeClient(this);
         } finally {
             try {
