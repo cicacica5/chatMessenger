@@ -44,7 +44,7 @@ public class ClientHandler implements Runnable {
 
         } catch (IOException | ClassNotFoundException e) {
             chatServer.broadcast(new Message("Server", username + " has left the chat."), this);
-            System.out.println("Client " + username + " has disconnected on port:"  + socket.getLocalPort());
+            System.out.println("Client " + username + " has disconnected on port: "  + socket.getLocalPort());
             chatServer.removeClient(this);
         } finally {
             try {

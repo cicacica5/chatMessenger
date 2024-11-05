@@ -31,6 +31,7 @@ public class Client {
             socket = new Socket(serverAddress, port);
             inputStream  = new ObjectInputStream(socket.getInputStream());
             outputStream = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("You are now connected to the chat. Please enter 'exit' to leave the chat.");
         }
         catch (IOException e) {
             System.err.println("Error connecting to server: " + e.getMessage());
@@ -130,7 +131,6 @@ public class Client {
                 port = Integer.parseInt(scanner.nextLine());
                 client = new Client(serverAddress, port, username);
                 client.connect();
-                System.out.println("You are now connected to the chat. Please enter 'exit' to leave the chat.");
             } else {
                 System.out.println("Invalid option, please try agian.");
             }

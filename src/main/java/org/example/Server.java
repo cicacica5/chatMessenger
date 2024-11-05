@@ -84,6 +84,7 @@ public class Server {
             Server server = new Server();
             server.start();
         } catch (IOException e) {
+            System.err.println("Error starting server: " + e.getMessage());
             e.printStackTrace();
         }
     }
