@@ -25,10 +25,10 @@ public class Client {
         this.username = username;
     }
 
-    private void connect() throws IOException {
-        socket = new Socket(serverAddress, port);
+    private void connect() {
         try
         {
+            socket = new Socket(serverAddress, port);
             inputStream  = new ObjectInputStream(socket.getInputStream());
             outputStream = new ObjectOutputStream(socket.getOutputStream());
         }
@@ -81,11 +81,15 @@ public class Client {
         try {
             if(inputStream != null) inputStream.close();
         }
-        catch(Exception e) {}
+        catch(Exception e) {
+            e.printStackTrace();
+        }
         try {
             if(outputStream != null) outputStream.close();
         }
-        catch(Exception e) {}
+        catch(Exception e) {
+            e.printStackTrace();
+        }
         try{
             if(socket != null) socket.close();
         }
@@ -145,12 +149,10 @@ public class Client {
             client.disconnect();
 
         } catch (IOException e) {
-                e.printStackTrace();
-
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 

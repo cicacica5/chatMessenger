@@ -3,8 +3,6 @@ package org.example;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +50,6 @@ public class Server {
             int newPort = createNewChat();
             outputStream.writeObject(newPort);
         }
-
     }
 
     private int createNewChat() {
@@ -68,6 +65,7 @@ public class Server {
             System.out.println("New chat server started on port: " + port);
             return port;
         } catch (IOException e) {
+            System.err.println("Error creating chat server: " + e.getMessage());
             e.printStackTrace();
             return -1;
         }

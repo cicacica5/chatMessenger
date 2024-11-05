@@ -41,7 +41,7 @@ public class ChatServer {
         clientHandlers.remove(client);
     }
 
-    public void close(){
+    public void close() {
         try {
             if (serverSocket != null) {
                 serverSocket.close();
