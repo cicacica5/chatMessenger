@@ -16,7 +16,6 @@ public class ChatServer {
 
     public void start() {
         try {
-            System.out.println("Chat started on port: " + serverSocket.getLocalPort());
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
                 System.out.println("A new client has connected on port: " + serverSocket.getLocalPort());
@@ -40,8 +39,6 @@ public class ChatServer {
 
     public void removeClient(ClientHandler client) {
         clientHandlers.remove(client);
-        //Message message = new Message();
-        //broadcast(message, client);
     }
 
     public void close(){

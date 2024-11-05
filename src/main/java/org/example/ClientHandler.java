@@ -34,11 +34,14 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
+            username = (String) inputStream.readObject();
+            chatServer.broadcast(new Message("Server", username + " has joined the chat."), this);
+
             while (true) {
                 Message message = (Message) inputStream.readObject();
-                username = message.getUsername();
                 chatServer.broadcast(message, this);
             }
+
         } catch (IOException | ClassNotFoundException e) {
             chatServer.broadcast(new Message("Server", username + " has left the chat."), this);
             chatServer.removeClient(this);

@@ -48,12 +48,24 @@ public class Client {
         int newPort = (Integer) inputStream.readObject();
         disconnect();
 
-        socket = new Socket(serverAddress, newPort);
-        outputStream = new ObjectOutputStream(socket.getOutputStream());
-        inputStream = new ObjectInputStream(socket.getInputStream());
-        new listenFromServer().start();
-
+        if (newPort < 0) {
+            System.out.println("Failed to create a new chat room. Please try again later.");
+        } else {
+            socket = new Socket(serverAddress, newPort);
+            outputStream = new ObjectOutputStream(socket.getOutputStream());
+            inputStream = new ObjectInputStream(socket.getInputStream());
+            new listenFromServer().start();
+        }
         return newPort;
+    }
+
+    private void sendUsername(String username) {
+        try {
+            outputStream.writeObject(username);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void sendMessage(Message message) {
@@ -98,16 +110,21 @@ public class Client {
             Client client = new Client(serverAddress, port, username);
             if (option.equals("1")) {
                 port = client.connectNew();
+                while (port < 0) {
+                    port = client.connectNew();
+                }
                 System.out.println("New chat created on port " + port + ". You are now connected to the chat.");
             } else if (option.equals("2")) {
                 System.out.println("Enter the port number of the chat:");
                 port = Integer.parseInt(scanner.nextLine());
                 client = new Client(serverAddress, port, username);
                 client.connect();
+                System.out.println("You are now connected to the chat.");
             } else {
                 System.out.println("Invalid option, please try agian.");
             }
             //try again
+            client.sendUsername(username);
 
             while (true) {
                 String message = scanner.nextLine();
