@@ -60,7 +60,9 @@ public class Server {
             ServerSocket chatServerSocket = new ServerSocket(0);
             int port = chatServerSocket.getLocalPort();
             ChatServer chatServer = new ChatServer(chatServerSocket);
-            chats.put(port, chatServer);
+            if (!chats.containsKey(port)) {
+                chats.put(port, chatServer);
+            } else return -1;
 
             new Thread(chatServer::start).start();
             System.out.println("New chat server started on port: " + port);
