@@ -16,13 +16,13 @@ Maven
 
 1. Configure the server address and the port number. 
 
-Check if you need to change the server address and the port number. Make sure the default port number in the Client main method is the same as the MAIN_PORT in the Server class.
+By default the server and the client are running on localhost. The port where the server starts needs to be available on your machine. Make sure the default port number in the Client main method is the same as the MAIN_PORT in the Server class.
 
 2. Complie the application
 
 In the root directory, compile all Java files:
 
-`javac -d out src/org/example/*.java`
+`javac -d out src/main/java/org/example/*.java`
 
 3. Start the server.
 
