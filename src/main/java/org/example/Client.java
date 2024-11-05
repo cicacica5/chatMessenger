@@ -95,6 +95,7 @@ public class Client {
     }
 
     public static void main(String[] args) {
+        //default
         String serverAddress = "localhost";
         int port = 5060;
         String username = "Anonymous";
